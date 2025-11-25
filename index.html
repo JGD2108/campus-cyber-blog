@@ -1,811 +1,164 @@
 <!DOCTYPE html>
-<!-- saved from url=(0032)http://127.0.0.1:5500/index.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
-  <title>Campus Cyber Blog – Starting Ethical Hacking the Right Way</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Educational cybersecurity blog for college students interested in starting ethical hacking safely and legally.">
-  <style>
-    :root {
-      --bg: #f5f5f7;
-      --bg-card: #ffffff;
-      --accent: #2563eb;
-      --accent-soft: #dbeafe;
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --border-soft: #e5e7eb;
-      --shadow-soft: 0 14px 30px rgba(15, 23, 42, 0.08);
-      --radius-lg: 16px;
-      --radius-sm: 999px;
-      --input-bg: #ffffff;
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>USF Cybersecurity: A Guide to Ethical Hacking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "usf-green": "#006747",
+            "usf-gold": "#CFC493",
+            "usf-yellow": "#F2A900",
+            "background-light": "#FFFFFF",
+            "background-dark": "#111827",
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+          },
+          borderRadius: {
+            "DEFAULT": "0.5rem",
+            "lg": "0.75rem",
+            "xl": "1rem",
+            "full": "9999px"
+          },
+        },
+      },
     }
-
-    body.dark {
-      --bg: #020617;
-      --bg-card: #020617;
-      --accent: #60a5fa;
-      --accent-soft: rgba(37, 99, 235, 0.25);
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --border-soft: #1f2937;
-      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.5);
-      --input-bg: #020617;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+  </script>
+<style>
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text-main);
-      transition: background 0.25s ease, color 0.25s ease;
-    }
-
-    .site-wrapper {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 24px 16px 40px;
-    }
-
-    /* Top navbar / blog header */
-    .site-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 26px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #2563eb, #22c55e);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 18px;
-    }
-
-    .brand-text-main {
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-
-    .brand-text-sub {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 14px;
-      font-size: 0.88rem;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-muted);
-      padding: 4px 10px;
-      border-radius: 999px;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      background: var(--accent-soft);
-      color: var(--accent);
-    }
-
-    .theme-toggle {
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      padding: 4px 10px;
-      font-size: 0.8rem;
-      background: var(--bg-card);
-      color: var(--text-main);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* Main layout: article + sidebar */
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 1.4fr);
-      gap: 24px;
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Article card */
-    article {
-      background: var(--bg-card);
-      border-radius: var(--radius-lg);
-      padding: 22px 22px 26px;
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-soft);
-      transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-
-    article header {
-      margin-bottom: 16px;
-    }
-
-    .post-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 10px;
-      border-radius: var(--radius-sm);
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 8px;
-    }
-
-    .post-title {
-      font-size: 1.7rem;
-      margin-bottom: 6px;
-    }
-
-    .post-meta {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .taglist {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 10px;
-    }
-
-    .tag {
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      padding: 2px 10px;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      background: rgba(249, 250, 251, 0.9);
-    }
-
-    body.dark .tag {
-      background: #020617;
-    }
-
-    /* Author profile */
-    .author-profile {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border-soft);
-    }
-
-    .author-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #6366f1, #22c55e);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-
-    .author-info-main {
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .author-info-sub {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .author-follow {
-      margin-left: auto;
-      font-size: 0.78rem;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      padding: 4px 10px;
-      background: var(--bg);
-      cursor: pointer;
-    }
-
-    h2 {
-      font-size: 1.18rem;
-      margin-top: 20px;
-      margin-bottom: 8px;
-    }
-
-    p {
-      margin: 4px 0 6px;
-      font-size: 0.96rem;
-      line-height: 1.7;
-    }
-
-    strong {
-      font-weight: 600;
-    }
-
-    .highlight-box {
-      border-left: 3px solid var(--accent);
-      background: #f9fafb;
-      padding: 10px 14px;
-      margin: 10px 0 6px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      color: var(--text-main);
-    }
-
-    body.dark .highlight-box {
-      background: #020617;
-    }
-
-    /* Interactions section */
-    .post-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 14px;
-      padding: 10px 0 6px;
-      border-top: 1px dashed var(--border-soft);
-      border-bottom: 1px dashed var(--border-soft);
-      margin-bottom: 6px;
-    }
-
-    .like-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      padding: 4px 12px;
-      background: var(--bg);
-      cursor: pointer;
-      font-size: 0.85rem;
-    }
-
-    .like-btn span.emoji {
-      font-size: 1rem;
-    }
-
-    .save-toggle {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      cursor: pointer;
-    }
-
-    .saved {
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    /* Comments */
-    .comments-section {
-      margin-top: 20px;
-    }
-
-    .comments-section h2 {
-      font-size: 1.08rem;
-      margin-bottom: 6px;
-    }
-
-    .comment-form {
-      margin-top: 8px;
-      margin-bottom: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .comment-form input,
-    .comment-form textarea {
-      border-radius: 10px;
-      border: 1px solid var(--border-soft);
-      padding: 8px 10px;
-      font-size: 0.9rem;
-      background: var(--input-bg);
-      color: var(--text-main);
-    }
-
-    .comment-form textarea {
-      resize: vertical;
-      min-height: 60px;
-    }
-
-    .comment-form button {
-      align-self: flex-start;
-      border-radius: 999px;
-      border: none;
-      padding: 6px 14px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      background: var(--accent);
-      color: white;
-    }
-
-    .comment-list {
-      margin-top: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .comment {
-      border-radius: 10px;
-      border: 1px solid var(--border-soft);
-      padding: 8px 10px;
-      background: var(--bg);
-      font-size: 0.88rem;
-    }
-
-    .comment-author {
-      font-weight: 600;
-      font-size: 0.85rem;
-      margin-bottom: 2px;
-    }
-
-    .comment-text {
-      font-size: 0.86rem;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .card {
-      background: var(--bg-card);
-      border-radius: 14px;
-      padding: 16px 18px;
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-soft);
-      font-size: 0.9rem;
-      transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
-
-    .card h3 {
-      font-size: 1rem;
-      margin-bottom: 8px;
-    }
-
-    .pill {
-      display: inline-block;
-      border-radius: 999px;
-      padding: 2px 9px;
-      background: #eff6ff;
-      color: var(--accent);
-      font-size: 0.75rem;
-      margin-bottom: 6px;
-    }
-
-    body.dark .pill {
-      background: var(--accent-soft);
-    }
-
-    .list {
-      margin-top: 4px;
-      padding-left: 18px;
-    }
-
-    .list li {
-      margin: 3px 0;
-      cursor: pointer;
-    }
-
-    .list li:hover {
-      text-decoration: underline;
-    }
-
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      margin-top: 28px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      text-align: center;
+        font-family: 'Inter', sans-serif;
     }
   </style>
 </head>
-<body>
-  <div class="site-wrapper">
-    <!-- Blog Header / Navbar -->
-    <header class="site-header">
-      <div class="brand">
-        <div class="brand-logo">C</div>
-        <div>
-          <div class="brand-text-main">Campus Cyber Blog</div>
-          <div class="brand-text-sub">Ethical hacking for students, the right way.</div>
-        </div>
-      </div>
-      <div class="nav-right">
-        <nav class="nav-links">
-          <a href="http://127.0.0.1:5500/index.html#" class="active">Home</a>
-          <a href="http://127.0.0.1:5500/index.html#">Topics</a>
-          <a href="http://127.0.0.1:5500/index.html#">Beginner Guide</a>
-          <a href="http://127.0.0.1:5500/index.html#">About</a>
-        </nav>
-        <button class="theme-toggle" id="themeToggle">
-          <span id="themeIcon">🌞</span> <span id="themeLabel">Light</span>
-        </button>
-      </div>
-    </header>
+<body class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 antialiased">
+<div class="relative flex min-h-screen w-full flex-col">
+<nav class="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
+<div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
+<a class="flex items-center gap-2 text-usf-green dark:text-usf-gold" href="#">
+<i class="fa-solid fa-user-secret text-2xl"></i>
+<span class="text-lg font-bold tracking-tight">USF CyberSec Hub</span>
+</a>
+<div class="hidden md:flex items-center gap-2">
+<a class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-usf-green dark:hover:text-usf-gold transition-colors" href="#">Home</a>
+<a class="px-3 py-2 text-sm font-medium text-white bg-usf-green rounded-md" href="#">Ethical Hacking Guide</a>
+<a class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-usf-green dark:hover:text-usf-gold transition-colors" href="#">Resources</a>
+<a class="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-usf-green dark:hover:text-usf-gold transition-colors" href="#">About WCSC</a>
+</div>
+<button class="md:hidden rounded-md p-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
+<i class="fa-solid fa-bars"></i>
+</button>
+</div>
+</nav>
+<header class="w-full bg-usf-green text-white">
+<div class="mx-auto max-w-5xl py-12 md:py-20 px-4 text-center">
+<h1 class="text-4xl md:text-5xl font-black leading-tight tracking-tighter">Starting Ethical Hacking at USF</h1>
+<p class="mt-4 text-lg md:text-xl font-normal max-w-3xl mx-auto text-usf-gold">A simple roadmap for USF students curious about cybersecurity and ethical hacking.</p>
+</div>
+</header>
+<main class="flex-1 w-full max-w-4xl mx-auto py-8 px-4">
+<div class="space-y-8">
+<section class="bg-white dark:bg-gray-800/50 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+<h2 class="text-2xl font-bold text-usf-green dark:text-usf-gold mb-4">What Ethical Hacking Means</h2>
+<p class="text-base font-normal leading-relaxed text-gray-700 dark:text-gray-300">Ethical hacking means testing systems with permission to help keep them safe, not to break them. At USF, that might look like working with the CSE Department or the Whitehatters Computer Security Club on approved labs and Capture The Flag events, instead of randomly “testing” campus WiFi or Canvas on your own.</p>
+</section>
+<section class="bg-white dark:bg-gray-800/50 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+<h2 class="text-2xl font-bold text-usf-green dark:text-usf-gold mb-4">Legal + Ethical Basics</h2>
+<p class="text-base font-normal leading-relaxed text-gray-700 dark:text-gray-300">Always remember: permission is key. Engaging in hacking activities without explicit, written authorization is illegal. Ethical hacking operates within a strict framework of rules and a code of conduct. The goal is to improve security, not cause damage. <span class="font-semibold text-gray-900 dark:text-white">For example, scanning USF’s campus network or trying to “test” Canvas without written approval is not ethical hacking — it’s just illegal access.</span> Familiarize yourself with laws like the Computer Fraud and Abuse Act (CFAA) to understand the legal boundaries.</p>
+</section>
+<section class="bg-white dark:bg-gray-800/50 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+<h2 class="text-2xl font-bold text-usf-green dark:text-usf-gold mb-4">Where USF Students Can Practice Safely</h2>
+<div class="space-y-4">
+<a class="flex items-center gap-4 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group border dark:border-gray-700" href="https://www.hackthebox.com/" rel="noopener noreferrer" target="_blank">
+<i class="fa-solid fa-box text-usf-green dark:text-usf-gold text-2xl w-8 text-center"></i>
+<div>
+<h3 class="font-bold text-gray-900 dark:text-white group-hover:text-usf-green dark:group-hover:text-usf-yellow">Hack The Box</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">A popular platform with virtual labs to improve your penetration testing skills.</p>
+</div>
+</a>
+<a class="flex items-center gap-4 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group border dark:border-gray-700" href="https://tryhackme.com/" rel="noopener noreferrer" target="_blank">
+<i class="fa-solid fa-terminal text-usf-green dark:text-usf-gold text-2xl w-8 text-center"></i>
+<div>
+<h3 class="font-bold text-gray-900 dark:text-white group-hover:text-usf-green dark:group-hover:text-usf-yellow">TryHackMe</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">A beginner-friendly site that offers learning paths and guided hacking exercises.</p>
+</div>
+</a>
+<a class="flex items-center gap-4 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group border dark:border-gray-700" href="https://overthewire.org/wargames/" rel="noopener noreferrer" target="_blank">
+<i class="fa-solid fa-gamepad text-usf-green dark:text-usf-gold text-2xl w-8 text-center"></i>
+<div>
+<h3 class="font-bold text-gray-900 dark:text-white group-hover:text-usf-green dark:group-hover:text-usf-yellow">OverTheWire</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Learn Linux + basics through wargames.</p>
+</div>
+</a>
+</div>
+<div class="mt-6 bg-usf-green/10 dark:bg-usf-gold/10 p-4 rounded-lg text-center border border-usf-green/20 dark:border-usf-gold/20">
+<p class="text-sm text-usf-green dark:text-usf-gold font-medium">Ask WCSC members or CSE faculty about safe lab environments.</p>
+</div>
+</section>
+<section class="bg-white dark:bg-gray-800/50 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+<h2 class="text-2xl font-bold text-usf-green dark:text-usf-gold mb-4">Core Skills to Build</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="bg-gray-100 dark:bg-gray-700/60 p-4 rounded-lg">
+<i class="fa-solid fa-network-wired text-usf-green dark:text-usf-gold mb-2 text-xl"></i>
+<h3 class="font-bold text-gray-900 dark:text-white">Networking</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Understand TCP/IP, DNS, and how data moves.</p>
+</div>
+<div class="bg-gray-100 dark:bg-gray-700/60 p-4 rounded-lg">
+<i class="fa-brands fa-linux text-usf-green dark:text-usf-gold mb-2 text-xl"></i>
+<h3 class="font-bold text-gray-900 dark:text-white">Linux</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Get comfortable with the command line.</p>
+</div>
+<div class="bg-gray-100 dark:bg-gray-700/60 p-4 rounded-lg">
+<i class="fa-brands fa-python text-usf-green dark:text-usf-gold mb-2 text-xl"></i>
+<h3 class="font-bold text-gray-900 dark:text-white">Scripting (Python)</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Automate tasks and write custom tools.</p>
+</div>
+</div>
+</section>
+<section class="bg-white dark:bg-gray-800/50 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+<h2 class="text-2xl font-bold text-usf-green dark:text-usf-gold mb-4">Quick Start Checklist</h2>
+<ul class="space-y-3 text-gray-700 dark:text-gray-300">
+<li class="flex items-center gap-3">
+<i class="fa-solid fa-check-circle text-usf-green dark:text-usf-gold"></i>
+<span>Sign up for a free TryHackMe account and complete the “Intro” room.</span>
+</li>
+<li class="flex items-center gap-3">
+<i class="fa-solid fa-check-circle text-usf-green dark:text-usf-gold"></i>
+<span>Join the USF Whitehatters Discord or mailing list.</span>
+</li>
+<li class="flex items-center gap-3">
+<i class="fa-solid fa-check-circle text-usf-green dark:text-usf-gold"></i>
+<span>Pick ONE skill this week (Linux, networking, or Python) and practice for 30 minutes.</span>
+</li>
+<li class="flex items-center gap-3">
+<i class="fa-solid fa-check-circle text-usf-green dark:text-usf-gold"></i>
+<span>Turn on MFA for your USF NetID and main email.</span>
+</li>
+<li class="flex items-center gap-3">
+<i class="fa-solid fa-check-circle text-usf-green dark:text-usf-gold"></i>
+<span>Set up a virtual machine (e.g., VirtualBox) to create a safe lab environment.</span>
+</li>
+</ul>
+<div class="mt-6 text-center">
+<a class="inline-block bg-usf-yellow text-usf-green font-bold py-2 px-6 rounded-full hover:bg-usf-gold hover:text-white transition-colors shadow" href="#">Join WCSC Now</a>
+</div>
+</section>
+</div>
+</main>
+<footer class="w-full bg-gray-100 dark:bg-gray-900 mt-12 py-6">
+<div class="max-w-5xl mx-auto px-4 text-center">
+<p class="text-sm text-gray-600 dark:text-gray-400">University of South Florida | Cybersecurity Program</p>
+<p class="text-xs text-gray-500 dark:text-gray-500 mt-1">This is an informational resource and not an official USF publication.</p>
+</div>
+</footer>
+</div>
 
-    <!-- Main layout: post + sidebar -->
-    <div class="layout">
-      <!-- Blog Post -->
-      <article>
-        <header>
-          <div class="post-label">Educational · Cybersecurity</div>
-          <h1 class="post-title">Starting Ethical Hacking the Right Way: A Beginner’s Roadmap</h1>
-          <div class="post-meta">
-            For college students &amp; young adults curious about cybersecurity · Beginner-friendly
-          </div>
-          <div class="taglist">
-            <span class="tag">Ethical Hacking</span>
-            <span class="tag">Beginner</span>
-            <span class="tag">Legal &amp; Safe</span>
-          </div>
-
-          <!-- Author Profile -->
-          <div class="author-profile">
-            <div class="author-avatar">M</div>
-            <div>
-              <div class="author-info-main">Jose David Gomez</div>
-              <div class="author-info-sub">USF Student</div>
-              <div class="author-info-sub">Updated: 2025 · ~8 min read</div>
-            </div>
-            <button class="author-follow" id="followBtn">+ Follow author</button>
-          </div>
-        </header>
-
-        <!-- Interactive actions -->
-        <div class="post-actions">
-          <button class="like-btn" id="likeBtn">
-            <span class="emoji" id="likeEmoji">♡</span>
-            <span id="likeText">Like</span>
-            · <span id="likeCount">0</span>
-          </button>
-          <div class="save-toggle" id="saveToggle">🔖 Save for later</div>
-        </div>
-
-        <h2>Engaging Hook Intro</h2>
-        <p>You’ve probably seen those flashy YouTube videos where someone in a dark room types a few lines of code and suddenly “hacks the system.” It looks exciting, powerful, and honestly… kind of cool. Maybe you’ve even thought, “I want to learn how to do that.”</p>
-        <p>But then reality hits: laws, ethics, acronyms you don’t understand, and people online saying, “Just don’t get caught.” That’s not only terrible advice, it’s dangerous. <strong>Real ethical hacking</strong> isn’t about being a movie-style hacker. It’s about protecting people, systems, and data.</p>
-        <p>Think of ethical hacking like learning to drive an ambulance, not stealing a sports car for a joyride. One is risky, illegal fun; the other is trained, authorized, and helps save lives.</p>
-        <p>If you’re a college student curious about cybersecurity, the good news is that there <strong>is</strong> a structured, safe way to start. You don’t need to be a genius, but you do need patience, curiosity, and respect for the rules.</p>
-        <p>In this post, we’ll walk through what ethical hacking actually means, the laws and ethics you must respect, where you can safely practice, the skills you should build first, and how to form good learning habits.</p>
-        <p>By the end, you’ll have a clear roadmap so you can begin your journey the right way, without putting your future at risk.</p>
-
-        <h2>What Ethical Hacking Actually Means</h2>
-        <p><strong>Ethical hacking</strong> is the practice of testing systems to find vulnerabilities <em>with permission</em>, so they can be fixed before bad actors abuse them. You’re not breaking in—you’re invited in to check the locks.</p>
-        <p>A common term you’ll see is <strong>authorized penetration testing</strong>. That simply means a company or organization gives you written authorization to simulate attacks on their systems to see what breaks, and then report back.</p>
-        <p>Ethical hackers act more like <strong>security inspectors</strong> than criminals: they follow rules of engagement, stay within scope, document everything, and communicate professionally.</p>
-        <p>The key difference between an ethical hacker and a malicious one is not the toolset, but <strong>consent, intent, and accountability</strong>.</p>
-
-        <h2>The Legal/Ethical Foundations</h2>
-        <p>Before you open a terminal or scan anything, you need to understand the legal basics. In the United States, the main law is the <strong>Computer Fraud and Abuse Act (CFAA)</strong>. In simple terms, it makes it illegal to access a computer or system without authorization, or to go beyond what you’re allowed to do.</p>
-        <p>Think of it like entering a building: if you’re invited into the lobby, that doesn’t mean you can go break into the server room. <strong>Permission</strong> must be clear, specific, and ideally in writing.</p>
-        <p>This is called <strong>permission-based testing</strong>. You only test what you’ve been explicitly allowed to test. No guessing, no “they probably won’t mind,” no “it’s just for practice.”</p>
-        <div class="highlight-box">
-          <strong>Concrete examples of what NOT to do:</strong><br>
-          • Scanning your university’s network without written authorization.<br>
-          • “Testing” a friend’s Instagram or email account without their explicit, written consent.<br>
-          • Running tools against random websites “just to see what happens.”<br>
-        </div>
-        <p>If you’re ever unsure whether something is allowed, treat it as <strong>not allowed</strong>. Your goal is to become the kind of professional people trust, not fear.</p>
-
-        <h2>Where Beginners Should Practice Safely</h2>
-        <p>The good news: you don’t need to touch real production systems to learn. There are platforms built specifically for practice, like virtual gyms for hackers.</p>
-        <p><strong>TryHackMe</strong> offers guided, beginner-friendly rooms where you follow step-by-step tutorials to learn networking, web hacking, and more. It’s like having a lab instructor walk you through each concept.</p>
-        <p><strong>Hack The Box</strong> gives you more challenge-style machines to “break into” in a controlled environment. Imagine puzzle rooms where each machine is a locked door, and your job is to figure out the correct key.</p>
-        <p><strong>OverTheWire</strong> is a series of wargames that teach you Linux, networking, and basic exploitation through progressively harder levels. It’s like a video game campaign where each level forces you to learn a new trick.</p>
-        <p><strong>Metasploitable</strong> is a deliberately vulnerable virtual machine you can run locally. You treat it like a crash-test dummy: it exists so you can safely “crash” it and learn from the impact.</p>
-        <p>All of these are designed for learning, which means you can experiment freely without risking lawsuits, bans, or harming real users.</p>
-
-        <h2>Essential Skills to Develop First</h2>
-        <p>Before you worry about “exploits,” focus on your foundation. Ethical hacking without fundamentals is like trying to do surgery because you watched a few hospital dramas.</p>
-        <p><strong>Linux navigation</strong> is essential, because many tools and servers run on Linux. Learn commands for moving around the file system, editing files, managing processes, and viewing logs.</p>
-        <p><strong>Networking basics</strong> help you understand how data moves: IP addresses, ports, TCP vs UDP, DNS, routing. Think of it as learning the roads and traffic rules before driving a race car.</p>
-        <p><strong>Scripting</strong> with languages like Python or Bash lets you automate tasks, parse logs, and build small helper tools. You don’t need to be a software engineer, but you should be comfortable writing simple scripts.</p>
-        <p><strong>Web fundamentals</strong> (HTTP, HTML, cookies, sessions) are crucial because so many attacks target web applications. Understanding how a login form works is the first step to understanding how it can be abused—and secured.</p>
-
-        <h2>Beginner Toolset (Explained Simply)</h2>
-        <p><strong>Nmap</strong> is a network scanner. Think of it as a flashlight you shine on a building to see which doors and windows (ports) are open.</p>
-        <p><strong>Burp Suite</strong> is a web proxy. It sits between your browser and a website, like a translator at a meeting, letting you intercept, edit, and replay requests to understand what’s really happening.</p>
-        <p><strong>Metasploit</strong> is a framework that bundles exploits and payloads. Imagine a toolbox filled with pre-built lock-picking tools, used in a safe environment to test whether a lock is weak.</p>
-        <p><strong>Wireshark</strong> is a network protocol analyzer. It’s like a security camera for network traffic, letting you “rewind” and see what packets went where and why.</p>
-        <p>At the beginning, your goal isn’t to become a master of every tool. It’s to understand what each one is for and practice using them responsibly in labs.</p>
-
-        <h2>How to Build Good Learning Habits</h2>
-        <p>Technical skill is only half the story. The other half is how you learn. Ethical hacking is a marathon, not a sprint, and good habits keep you moving.</p>
-        <p>Get used to <strong>taking notes</strong>. Treat your notebook or note app like a personal playbook where you save commands, concepts, mistakes, and “aha!” moments.</p>
-        <p><strong>Track your progress</strong> on platforms like TryHackMe or Hack The Box. Watching your levels, badges, or completed rooms grow is like seeing your gym stats improve—it keeps you motivated.</p>
-        <p>Participate in <strong>CTFs (Capture The Flag)</strong>. These are competitions where each challenge is a puzzle hiding a “flag” string. They’re like escape rooms for your brain and a great way to meet the community.</p>
-        <p>Finally, learn from others by <strong>watching breakdowns and reading writeups</strong>. Seeing how experienced hackers approached a problem is like watching a coach analyze a game—you pick up strategy, not just tactics.</p>
-
-        <h2>Conclusion With Emotional Takeaway</h2>
-        <p>If you’re feeling a mix of excitement and nervousness, that’s normal. You’re stepping into a field where your skills can genuinely help people and organizations stay safe.</p>
-        <p>Remember: <strong>ethical hacking is not about breaking rules—it’s about protecting others by understanding how systems can break</strong>. The more seriously you take the legal and ethical side, the more doors will open for you professionally.</p>
-        <p>Start with safe labs, build your fundamentals, practice with beginner tools, and develop steady learning habits. Treat each small win like a step on a long hike, not the finish line.</p>
-        <p>Most importantly, don’t rush into anything sketchy just to “feel like a real hacker.” Your curiosity, guided by responsibility, can become a career that protects people, data, and entire organizations. That’s a much more powerful story than any movie-style hack.</p>
-
-        <!-- Comments -->
-        <section class="comments-section">
-          <h2>Join the conversation</h2>
-          <p style="font-size:0.88rem; color:var(--text-muted);">
-            What part of ethical hacking are you most curious about? Share your thoughts or questions below.
-          </p>
-          <form class="comment-form" id="commentForm">
-            <input type="text" id="commentName" placeholder="Your name (optional)">
-            <textarea id="commentText" placeholder="Write a comment..."></textarea>
-            <button type="submit">Post comment</button>
-          </form>
-          <div class="comment-list" id="commentList">
-            <!-- Dynamic comments will appear here -->
-          </div>
-        </section>
-      </article>
-
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <section class="card">
-          <span class="pill">New here?</span>
-          <h3>About This Blog</h3>
-          <p>Campus Cyber Blog is designed for students who want to explore cybersecurity in a safe, legal, and structured way.</p>
-          <p>No drama, no movie-style hacking—just clear guidance to help you grow skills that actually matter.</p>
-        </section>
-
-        <section class="card">
-          <h3>Quick Start Checklist</h3>
-          <ul class="list">
-            <li>Create an account on <strong>TryHackMe</strong> or <strong>Hack The Box</strong>.</li>
-            <li>Install a Linux distro (or use a VM).</li>
-            <li>Review CFAA / local computer crime laws.</li>
-            <li>Pick one skill to learn this week (Linux, networking, or Python).</li>
-          </ul>
-        </section>
-
-        <section class="card">
-          <h3>More Beginner Topics</h3>
-          <ul class="list">
-            <li>Linux Basics for Future Ethical Hackers</li>
-            <li>CTFs 101: How Competitions Help You Learn</li>
-            <li>Building a Simple Lab at Home (Legally)</li>
-          </ul>
-        </section>
-      </aside>
-    </div>
-
-    <footer>
-      © 2025 Campus Cyber Blog · Learn responsibly. Hack ethically.
-    </footer>
-  </div>
-
-  <script>
-    // Theme toggle
-    const body = document.body;
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const themeLabel = document.getElementById('themeLabel');
-
-    function setTheme(isDark) {
-      if (isDark) {
-        body.classList.add('dark');
-        themeIcon.textContent = '🌙';
-        themeLabel.textContent = 'Dark';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        body.classList.remove('dark');
-        themeIcon.textContent = '🌞';
-        themeLabel.textContent = 'Light';
-        localStorage.setItem('theme', 'light');
-      }
-    }
-
-    // Load saved theme
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      setTheme(true);
-    }
-
-    themeToggle.addEventListener('click', () => {
-      setTheme(!body.classList.contains('dark'));
-    });
-
-    // Like button
-    const likeBtn = document.getElementById('likeBtn');
-    const likeCountSpan = document.getElementById('likeCount');
-    const likeEmoji = document.getElementById('likeEmoji');
-    const likeText = document.getElementById('likeText');
-
-    let liked = false;
-    let likeCount = 0;
-
-    likeBtn.addEventListener('click', () => {
-      liked = !liked;
-      if (liked) {
-        likeEmoji.textContent = '❤️';
-        likeText.textContent = 'Liked';
-        likeCount++;
-      } else {
-        likeEmoji.textContent = '♡';
-        likeText.textContent = 'Like';
-        likeCount = Math.max(0, likeCount - 1);
-      }
-      likeCountSpan.textContent = likeCount;
-    });
-
-    // Save toggle
-    const saveToggle = document.getElementById('saveToggle');
-    let saved = false;
-
-    saveToggle.addEventListener('click', () => {
-      saved = !saved;
-      if (saved) {
-        saveToggle.classList.add('saved');
-        saveToggle.textContent = '🔖 Saved to reading list';
-      } else {
-        saveToggle.classList.remove('saved');
-        saveToggle.textContent = '🔖 Save for later';
-      }
-    });
-
-    // Follow author button
-    const followBtn = document.getElementById('followBtn');
-    let following = false;
-    followBtn.addEventListener('click', () => {
-      following = !following;
-      followBtn.textContent = following ? 'Following' : '+ Follow author';
-    });
-
-    // Comments
-    const commentForm = document.getElementById('commentForm');
-    const commentName = document.getElementById('commentName');
-    const commentText = document.getElementById('commentText');
-    const commentList = document.getElementById('commentList');
-
-    commentForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const text = commentText.value.trim();
-      const name = commentName.value.trim() || 'Anonymous';
-
-      if (!text) return;
-
-      const commentEl = document.createElement('div');
-      commentEl.className = 'comment';
-
-      const authorEl = document.createElement('div');
-      authorEl.className = 'comment-author';
-      authorEl.textContent = name;
-
-      const textEl = document.createElement('div');
-      textEl.className = 'comment-text';
-      textEl.textContent = text;
-
-      commentEl.appendChild(authorEl);
-      commentEl.appendChild(textEl);
-      commentList.prepend(commentEl);
-
-      commentText.value = '';
-      commentName.value = '';
-    });
-  </script>
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
-
-
-<div id="give-freely-root-ejkiikneibegknkgimmihdpcbcedgmpo" class="give-freely-root" data-extension-id="ejkiikneibegknkgimmihdpcbcedgmpo" data-extension-name="Volume Booster" style="display: block;"><template shadowrootmode="open"><style>
-  :host {
-    all: initial;
-  }
-
-  .gf-scroll-remove::-webkit-scrollbar {
-    border-radius-bottom-right: 15px;
-  }
-
-  button {
-    cursor: pointer;
-    transition: transform 0.1s ease;
-  }
-
-  button:active {
-    transform: scale(0.98);
-  }
-
-  .give-freely-close-button:hover {
-    opacity: 0.7;
-  }
-
-  input[type="radio"] {
-    margin-right: 8px;
-  }
-
-  hr {
-    border: none;
-    border-top: 1px solid #e5e5e5;
-    margin: 1em 0;
-  }
-
-  @media (max-width: 600px), (max-height: 480px) {
-    #give-freely-checkout-popup {
-      display: none !important;
-    }
-  }
-</style><div><div class="gf-app"></div></div></template></div></body></html>
+</body></html>
